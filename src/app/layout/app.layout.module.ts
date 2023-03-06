@@ -17,6 +17,8 @@ import { AppFooterComponent } from './app.footer.component';
 import { AppConfigModule } from './config/config.module';
 import { AppSidebarComponent } from "./app.sidebar.component";
 import { AppLayoutComponent } from "./app.layout.component";
+import { LoginModule } from '../demo/components/auth/login/login.module';
+import Swal from 'sweetalert2'
 
 @NgModule({
     declarations: [
@@ -26,6 +28,7 @@ import { AppLayoutComponent } from "./app.layout.component";
         AppMenuComponent,
         AppSidebarComponent,
         AppLayoutComponent,
+        
     ],
     imports: [
         BrowserModule,
@@ -39,8 +42,11 @@ import { AppLayoutComponent } from "./app.layout.component";
         InputSwitchModule,
         RippleModule,
         RouterModule,
-        AppConfigModule
+        AppConfigModule,
+        LoginModule
+        
     ],
     exports: [AppLayoutComponent]
+    
 })
 export class AppLayoutModule { }
