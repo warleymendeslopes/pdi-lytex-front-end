@@ -8,23 +8,33 @@
                     <span class="text-600 font-medium">Entre em sua conta para continuar</span>
                 </div>
 
-                <div>
-                    <label for="email1" class="block text-900 text-xl font-medium mb-2">Email</label>
-                    <input  [(ngModel)]="username" id="email1" type="text" placeholder="Endereço de email" pInputText class="w-full md:w-30rem mb-5" style="padding:1rem">
 
-                    <label for="password1" class="block text-900 font-medium text-xl mb-2">Senha</label>
-                    <p-password id="password1" [(ngModel)]="password" placeholder="Senha" [toggleMask]="true" styleClass="mb-5" inputStyleClass="w-full p-3 md:w-30rem"></p-password>
 
-                    <div class="flex align-items-center justify-content-between mb-5 gap-5">
-                        <div class="flex align-items-center">
-                            <p-checkbox id="rememberme1" [binary]="true" styleClass="mr-2"></p-checkbox>
-                            <label for="rememberme1">Me lembre</label>
-                        </div>
-                        <a class="font-medium no-underline ml-2 text-right cursor-pointer" style="color: var(--primary-color)">Esqueceu sua senha?</a>
+                <form (ngSubmit)="onSubmit()" #form="ngForm">
+                    <div class="form-group">
+                        <label for="email1" class="block text-900 text-xl font-medium mb-2">Email</label>
+                      <input  [(ngModel)]="username" id="email1" type="email" placeholder="Endereço de email" pInputText class="w-full md:w-30rem mb-5 form-control" style="padding:1rem" [(ngModel)]="login.email" name="email" id="email">
                     </div>
-                    <button pButton pRipple label="Sign In" class="w-full p-3 text-xl" (click)="onLogin()"></button>
-                </div>
+
+
+                    <div class="form-group">
+                        <label for="password1" class="block text-900 font-medium text-xl mb-2">Senha</label>
+                      <input class="form-control w-full p-3 md:w-30rem" type="password" name="senha" id="senha" [(ngModel)]="login.senha" required /> 
+
+                      
+
+                    </div> 
+
+
+
+
+
+                    <button pButton pRipple label="Sign In" class="w-full p-3 text-xl mt-5" [disabled]="form.form.invalid"></button>
+                  </form>
+
+
+                </div> 
             </div>
         </div>
     </div>
-</div>
+

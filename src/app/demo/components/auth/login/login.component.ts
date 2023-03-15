@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { AccountService } from './shared/account.service';
 
 @Component({
     selector: 'app-login',
@@ -18,22 +19,40 @@ import { Router } from '@angular/router';
     ],
 })
 export class LoginComponent {
+    login = {
+        email: '',
+        senha: ''
+      };
+
     valCheck: string[] = ['remember'];
 
     password!: string;
 
     username!: string;
 
-    login!:[
-        {
-            username: 'admin',
-            password: 'admin',
-        },
-    ]
         
 
     constructor(public layoutService: LayoutService,
-        public router:Router) {}
+        private accountService: AccountService,
+        public router:Router
+        ) {}
+
+
+    async onSubmit() {
+
+        console.log(this.login)
+        try {
+            const result = await this.accountService.login(this.login);
+            console.log(`Login efetuado: ${result}`);
+
+            this.router.navigate(['/dashboard']);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+
+        
 
     ngOnInit(): void {
         this.layoutService.onMenuToggle();
@@ -62,6 +81,10 @@ export class LoginComponent {
         }
 
 
+
+
         console.log('Este é o login', this.username, this.password);
     }
+
+
 }
