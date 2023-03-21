@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { LoginService } from 'src/app/demo/service/login.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-login',
@@ -20,48 +22,67 @@ import { Router } from '@angular/router';
 export class LoginComponent {
     valCheck: string[] = ['remember'];
 
-    password!: string;
+    senha!: string;
 
     username!: string;
+    loginForm: FormGroup | any;
+    register: boolean = false;
 
-    login!:[
-        {
-            username: 'admin',
-            password: 'admin',
-        },
-    ]
-        
-
-    constructor(public layoutService: LayoutService,
-        public router:Router) {}
+    constructor(
+        public layoutService: LayoutService,
+        public router: Router,
+        private loginService: LoginService,
+        private fb: FormBuilder
+    ) {
+        this.loginForm = this.fb.group({
+            email: ['', Validators.required],
+            senha: ['', Validators.required],
+        });
+    }
 
     ngOnInit(): void {
         this.layoutService.onMenuToggle();
     }
 
     onLogin() {
-        if (this.username === 'admin' && this.password === 'admin') {
+        if (this.loginForm.invalid) {
             Swal.fire({
-                title: 'Login realizado com sucesso!',
-                icon: 'success',
-                showConfirmButton: false,
-                timer: 1500,
-                didClose: () => {
-                    this.router.navigate(['/dashboard']);
-                }
-            })
-        } else {
-            Swal.fire({
-                title: 'Login ou senha incorretos!',
                 icon: 'error',
-                showConfirmButton: false,
-                timer: 1500,
+                title: 'Oops...',
+                text: 'Por favor preencha todos os campos corretamente!',
             });
-
-            
+            return;
         }
 
+        Swal.fire({
+            title: 'Aguarde...',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            },
+        });
 
-        console.log('Este é o login', this.username, this.password);
+        this.loginService
+            .login(this.loginForm.value)
+            .toPromise()
+            .then((res: any) => {
+                localStorage.setItem('token', res.access_token);
+                localStorage.setItem('email', this.loginForm.value.email);
+                localStorage.setItem('userid', res._id);
+                Swal.close();
+                this.router.navigateByUrl('/init');
+            })
+            .catch((err: any) => {
+                console.log(err);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: `${err.error.message}}`,
+                });
+            });
+    }
+
+    goToRegister() {
+        this.router.navigateByUrl('/register');
     }
 }

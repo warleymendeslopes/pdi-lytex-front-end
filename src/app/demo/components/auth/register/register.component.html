@@ -1,0 +1,77 @@
+<br>
+<br>
+<br>
+<div class="flex flex-column align-items-center justify-content-center">
+  <div
+    style="border-radius:56px; padding:0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%);">
+    <div class="w-full surface-card py-8 px-5 sm:px-8" style="border-radius:53px">
+
+      <div class="text-center mb-5">
+        <div class="text-900 text-3xl font-medium mb-3">Registro!</div>
+        <span class="text-600 font-medium">Cadastre sua conta!</span>
+      </div>
+
+      <div>
+        <form [formGroup]="this.registerForm">
+          <div class="rowForm">
+
+            <div class="columForm">
+              <label for="email1" class="block text-900 text-xl font-medium mb-2">Email</label>
+              <input formControlName="email" id="email1" type="text" placeholder="Endereço de email" pInputText
+                class="w-full md:w-30rem mb-5" style="padding:1rem">
+            </div>
+            <div class="columForm">
+              <label for="senha" class="block text-900 text-xl font-medium mb-2">Senha</label>
+              <p-password id="password1" formControlName="senha" placeholder="Senha" [toggleMask]="true"
+                styleClass="mb-5" inputStyleClass="w-full p-3 md:w-30rem"></p-password>
+            </div>
+
+          </div>
+
+          <div class="rowForm">
+
+            <div class="columForm">
+              <label for="email1" class="block text-900 text-xl font-medium mb-2">Telefone</label>
+              <input formControlName="telefone" id="telefone1" type="text" placeholder="Endereço de email" pInputText
+                class="w-full md:w-30rem mb-5" style="padding:1rem">
+            </div>
+            <div class="columForm">
+              <label for="email1" class="block text-900 text-xl font-medium mb-2">Estabelecimento</label>
+              <input formControlName="nome" id="nome1" type="text" placeholder="Endereço de email" pInputText
+                class="w-full md:w-30rem mb-5" style="padding:1rem">
+            </div>
+
+          </div>
+          <div class="columForm" >
+            <label for="tipoCadastro" class="block text-900 text-xl font-medium mb-2">Tipo de Cadastro</label>
+            <div class="form-group">
+              <div class="radio-inline">
+                <label class="radio">
+                  <input type="radio" value="visitante" formControlName="tipo" />
+                  <span></span>
+                  Visitante
+                </label>
+                <label class="radio">
+                  <input type="radio" value="estabelecimento" formControlName="tipo" />
+                  <span></span>
+                  Estabelecimento
+                </label>
+                <label class="radio">
+                  <input type="radio" value="usuario" formControlName="tipo" />
+                  <span></span>
+                  Úsuario
+                </label>
+              </div>
+            </div>
+          </div>
+          
+          <button pButton pRipple label="Cadastrar-se" style="margin-top: 10px;" class="w-full p-3 text-xl"
+            (click)="save()"></button>
+            <button pButton pRipple label="Voltar" style="margin-top: 10px;" class="w-full p-3 text-xl"
+            (click)="exit()"></button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>

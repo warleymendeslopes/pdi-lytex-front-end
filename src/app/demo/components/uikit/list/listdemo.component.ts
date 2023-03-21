@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { SelectItem } from 'primeng/api';
 import { DataView } from 'primeng/dataview';
 import { Product } from 'src/app/demo/api/product';
+import { MenuService } from 'src/app/demo/service/menu.service';
 import { ProductService } from 'src/app/demo/service/product.service';
 
 @Component({
-    templateUrl: './listdemo.component.html'
+    templateUrl: './listdemo.component.html',
 })
 export class ListDemoComponent implements OnInit {
-
     products: Product[] = [];
 
     sortOptions: SelectItem[] = [];
@@ -23,10 +23,18 @@ export class ListDemoComponent implements OnInit {
 
     orderCities: any[] = [];
 
-    constructor(private productService: ProductService) { }
+    listMenu: any[] = [];
+
+    constructor(
+        private productService: ProductService,
+        private menuService: MenuService
+    ) {}
 
     ngOnInit() {
-        this.productService.getProducts().then(data => this.products = data);
+        this.list();
+        this.productService
+            .getProducts()
+            .then((data) => (this.products = data));
 
         this.sourceCities = [
             { name: 'San Francisco', code: 'SF' },
@@ -35,7 +43,8 @@ export class ListDemoComponent implements OnInit {
             { name: 'Istanbul', code: 'IST' },
             { name: 'Berlin', code: 'BRL' },
             { name: 'Barcelona', code: 'BRC' },
-            { name: 'Rome', code: 'RM' }];
+            { name: 'Rome', code: 'RM' },
+        ];
 
         this.targetCities = [];
 
@@ -46,11 +55,12 @@ export class ListDemoComponent implements OnInit {
             { name: 'Istanbul', code: 'IST' },
             { name: 'Berlin', code: 'BRL' },
             { name: 'Barcelona', code: 'BRC' },
-            { name: 'Rome', code: 'RM' }];
+            { name: 'Rome', code: 'RM' },
+        ];
 
         this.sortOptions = [
-            { label: 'Price High to Low', value: '!price' },
-            { label: 'Price Low to High', value: 'price' }
+            { label: 'maior para menor', value: '!price' },
+            { label: 'menor para maior', value: 'price' },
         ];
     }
 
@@ -69,5 +79,11 @@ export class ListDemoComponent implements OnInit {
     onFilter(dv: DataView, event: Event) {
         dv.filter((event.target as HTMLInputElement).value);
     }
-    
+
+    async list() {
+     this.menuService.list({}).subscribe((data: any) => {
+        this.listMenu = data;
+        console.log("list----->",data)
+     });
+    }
 }

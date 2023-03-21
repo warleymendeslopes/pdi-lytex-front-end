@@ -1,27 +1,30 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginRoutingModule } from './login-routing.module';
-import { LoginComponent } from './login.component';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
 import { PasswordModule } from 'primeng/password';
 import { InputTextModule } from 'primeng/inputtext';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RegisterComponent } from './register.component';
+import { FormLayoutDemoRoutingModule } from '../../uikit/formlayout/formlayoutdemo-routing.module';
+import { DropdownModule } from 'primeng/dropdown';
+import { RegisterRoutingModule } from './register-routing.module';
 
 
 @NgModule({
     imports: [
         CommonModule,
-        LoginRoutingModule,
         ButtonModule,
         CheckboxModule,
         InputTextModule,
         FormsModule,
         PasswordModule,
         ReactiveFormsModule,
+		DropdownModule,
+        RegisterRoutingModule
     ],
-    declarations: [LoginComponent],
-    exports: [LoginComponent]
+    declarations: [RegisterComponent],
+    exports: [RegisterComponent],
 })
-export class LoginModule { }
+export class RegisterModule { }
