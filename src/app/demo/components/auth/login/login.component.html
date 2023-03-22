@@ -10,7 +10,7 @@
                     <span class="text-600 font-medium">Entre em sua conta para continuar</span>
                 </div>
 
-                <div *ngIf="!register">
+     <div *ngIf="!register">
                     <form [formGroup]="loginForm" >
                         <label for="email1" class="block text-900 text-xl font-medium mb-2">Email</label>
                         <input formControlName="email" id="email1" type="text" placeholder="Endereço de email" pInputText
@@ -36,3 +36,4 @@
         </div>
     </div>
 </div>
+

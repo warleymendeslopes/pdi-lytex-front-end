@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { LoginService } from 'src/app/demo/service/login.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
@@ -20,6 +21,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
     ],
 })
 export class LoginComponent {
+    login = {
+        email: '',
+        senha: ''
+      };
+
     valCheck: string[] = ['remember'];
 
     senha!: string;
@@ -27,6 +33,7 @@ export class LoginComponent {
     username!: string;
     loginForm: FormGroup | any;
     register: boolean = false;
+
 
     constructor(
         public layoutService: LayoutService,
@@ -39,6 +46,7 @@ export class LoginComponent {
             senha: ['', Validators.required],
         });
     }
+
 
     ngOnInit(): void {
         this.layoutService.onMenuToggle();
@@ -84,5 +92,8 @@ export class LoginComponent {
 
     goToRegister() {
         this.router.navigateByUrl('/register');
+
     }
+
+
 }
