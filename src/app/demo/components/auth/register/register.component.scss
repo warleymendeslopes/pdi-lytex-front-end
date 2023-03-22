@@ -1,0 +1,12 @@
+.rowForm {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+.columForm {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    margin: 10px;
+}
