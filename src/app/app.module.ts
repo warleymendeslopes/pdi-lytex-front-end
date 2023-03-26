@@ -12,6 +12,10 @@ import { IconService } from './demo/service/icon.service';
 import { NodeService } from './demo/service/node.service';
 import { PhotoService } from './demo/service/photo.service';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { MatDialogModule } from '@angular/material/dialog';
+import { FormsModule } from '@angular/forms';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 
 @NgModule({
@@ -21,7 +25,12 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     imports: [
         AppRoutingModule,
         AppLayoutModule,
-        SweetAlert2Module.forRoot()
+        SweetAlert2Module.forRoot(),
+        ModalModule.forRoot(),
+        MatDialogModule,
+        InputNumberModule,
+        
+
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
@@ -29,6 +38,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
         PhotoService, ProductService
     ],
     bootstrap: [AppComponent]
+    
 
 
 

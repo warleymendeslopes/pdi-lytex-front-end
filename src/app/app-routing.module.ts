@@ -16,7 +16,7 @@ import { AuthGuard } from '../app/demo/components/auth/login/shared/auth.guard';
                     { path: 'blocks', loadChildren: () => import('./demo/components/primeblocks/primeblocks.module').then(m => m.PrimeBlocksModule) },
                     { path: 'pages', loadChildren: () => import('./demo/components/pages/pages.module').then(m => m.PagesModule) }
                 ],
-                canActivate: [AuthGuard]
+                //canActivate: [AuthGuard]
             },
             { path: '', loadChildren: () => import('./demo/components/auth/login/login.module').then(m => m.LoginModule)},
             { path: 'register', loadChildren: () => import('./demo/components/auth/register/register.module').then(m => m.RegisterModule)},

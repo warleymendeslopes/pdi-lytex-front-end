@@ -41,12 +41,8 @@ export class LoginComponent {
     ) {}
 
     async onSubmit() {
-
-        console.log(this.login)
         try {
             const result = await this.accountService.login(this.login);
-            console.log(`Login efetuado: ${result}`);
-
             this.router.navigate(['/init']);
         } catch (error) {
             console.error(error);

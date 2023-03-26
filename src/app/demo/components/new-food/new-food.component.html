@@ -1,0 +1,30 @@
+<br />
+<div style="display: flex; justify-content: center; align-items: center">
+    <form [formGroup]="this.newFood">
+        <span class="p-float-label">
+            <input pInputText id="username" formControlName="name" />
+            <label htmlFor="username">Nome do prato</label>
+        </span>
+        <br />
+
+        <span class="p-float-label">
+            <input pInputText id="username" formControlName="price" />
+            <label htmlFor="username">Preço</label>
+        </span>
+        <br />
+
+        <span class="p-float-label">
+            <textarea
+                rows="5"
+                cols="27"
+                pInputTextarea
+                formControlName="description"
+            ></textarea>
+        </span>
+        <br>
+
+        <span class="p-float-label" style="display: flex; justify-content: end;">
+          <p-button label="Submit" (onClick)="save()"></p-button>
+        </span>
+    </form>
+</div>
