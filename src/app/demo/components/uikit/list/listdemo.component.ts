@@ -100,6 +100,7 @@ export class ListDemoComponent implements OnInit {
             { label: 'maior para menor', value: '!price' },
             { label: 'menor para maior', value: 'price' },
         ];
+        
     }
     
     showSuccess() {
@@ -202,6 +203,11 @@ export class ListDemoComponent implements OnInit {
         });
     }
 
+
+    ppr(res:any){
+        console.log(res)
+    }
+
     saveNewFood() {
         if (this.newFood.invalid) {
             Swal.fire({
@@ -245,4 +251,5 @@ export class ListDemoComponent implements OnInit {
             }
         );
     }
+    
 }
