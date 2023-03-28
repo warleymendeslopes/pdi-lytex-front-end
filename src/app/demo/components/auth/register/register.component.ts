@@ -58,7 +58,11 @@ export class RegisterComponent implements OnInit {
                     icon: 'success',
                     title: 'Sucesso!',
                     text: 'Cadastro realizado com sucesso!',
+                    willClose: () => {
+                        this.router.navigateByUrl('/login');
+                    }
                 });
+                
             },
             (error) => {
                 Swal.fire({
@@ -77,6 +81,6 @@ export class RegisterComponent implements OnInit {
     }
 
     exit() {
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/login');
     }
 }

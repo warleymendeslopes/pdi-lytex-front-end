@@ -19,6 +19,7 @@ import { DialogModule } from 'primeng/dialog';
 import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
     templateUrl: './listdemo.component.html',
@@ -49,6 +50,7 @@ export class ListDemoComponent implements OnInit {
 
     addNewFood: boolean = false;
     mylistDiaolg: boolean = false;
+    login: any
 
 
     newFood: FormGroup | any;
@@ -58,7 +60,9 @@ export class ListDemoComponent implements OnInit {
         private menuService: MenuService,
         public dialog: MatDialog,
         private fb: FormBuilder,
-        private messageService: MessageService
+        private messageService: MessageService,
+        public router: Router,
+
     ) {
         this.newFood = this.fb.group({
             name: ['', Validators.required],
@@ -68,44 +72,54 @@ export class ListDemoComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.messageService.add({severity:'success', summary:'Success Message', detail:'Order submitted'});
         this.list();
-        this.productService
-            .getProducts()
-            .then((data) => (this.products = data));
-
-        this.sourceCities = [
-            { name: 'San Francisco', code: 'SF' },
-            { name: 'London', code: 'LDN' },
-            { name: 'Paris', code: 'PRS' },
-            { name: 'Istanbul', code: 'IST' },
-            { name: 'Berlin', code: 'BRL' },
-            { name: 'Barcelona', code: 'BRC' },
-            { name: 'Rome', code: 'RM' },
-        ];
-
-        this.targetCities = [];
-
-        this.orderCities = [
-            { name: 'San Francisco', code: 'SF' },
-            { name: 'London', code: 'LDN' },
-            { name: 'Paris', code: 'PRS' },
-            { name: 'Istanbul', code: 'IST' },
-            { name: 'Berlin', code: 'BRL' },
-            { name: 'Barcelona', code: 'BRC' },
-            { name: 'Rome', code: 'RM' },
-        ];
-
+        this.verifyLogin();
         this.sortOptions = [
             { label: 'maior para menor', value: '!price' },
             { label: 'menor para maior', value: 'price' },
         ];
         
     }
-    
+
+    async verifyLogin() {
+        //transform in object
+
+        this.login = (localStorage.getItem('user'))
+        this.login = JSON.parse(this.login)
+        console.log("------------------", this.login)
+        if (!this.login) {
+            return this.router.navigate(['/login'])
+        }
+        return
+    }
+
+    logout() {
+        Swal.fire({
+            title: 'Tem certeza?',
+            text: 'Você não poderá reverter isso!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sim, sair!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                localStorage.removeItem('user')
+                localStorage.removeItem('token')
+                this.router.navigate(['/login'])
+            } else {
+                return
+            }
+
+
+        })
+
+
+    }
+
     showSuccess() {
-        this.messageService.add({severity:'success', summary:'Success Message', detail:'Order submitted'});
-      }
+        this.messageService.add({ severity: 'success', summary: 'Success Message', detail: 'Order submitted' });
+    }
 
     openDialog(hiddenClose = false): void {
         if (this.addNewFood == true) {
@@ -151,36 +165,36 @@ export class ListDemoComponent implements OnInit {
                     this.list();
 
 
-                    this.messageService.add({severity:'warn', summary:'Deletado', detail:'O prato foi removido do cardapio'});
+                    this.messageService.add({ severity: 'warn', summary: 'Deletado', detail: 'O prato foi removido do cardapio' });
                 }
-                ,(error) => {
-                    this.messageService.add({severity:'error', summary:'Erro', detail:'Ocorreu um erro ao deletar o prato'});
-                }
+                    , (error) => {
+                        this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Ocorreu um erro ao deletar o prato' });
+                    }
                 );
             }
         });
     }
 
-    
+
 
     addMyList(productId: any) {
         const Product = this.listMenu.find((item) => item._id === productId);
         const exist = this.myList.find((item) => item._id === productId);
         if (exist) {
-            this.messageService.add({severity:'info', summary:'Já adicionado', detail:'Prato já adicionado, escolha outro!'});
+            this.messageService.add({ severity: 'info', summary: 'Já adicionado', detail: 'Prato já adicionado, escolha outro!' });
             return;
         }
         Product.onList = true
 
         this.myList.push(Product);
-        this.messageService.add({severity:'success', summary:'Adicionado', detail:'Prato adicionado com sucesso!'});
+        this.messageService.add({ severity: 'success', summary: 'Adicionado', detail: 'Prato adicionado com sucesso!' });
     }
 
     removeMyList(productId: any) {
         const Product = this.listMenu.find((item) => item._id === productId)
         const exist = this.myList.find((item) => item._id === productId);
         if (!exist) {
-            this.messageService.add({severity:'info', summary:'Já adicionado', detail:'Prato já adicionado, escolha outro!'});
+            this.messageService.add({ severity: 'info', summary: 'Já adicionado', detail: 'Prato já adicionado, escolha outro!' });
             return;
         }
         Product.onList = false
@@ -188,7 +202,7 @@ export class ListDemoComponent implements OnInit {
 
 
         this.myList.splice(this.myList.indexOf(Product), 1);
-        this.messageService.add({severity:'warn', summary:'Retirado', detail:'Prato retirado de sua lista!'});
+        this.messageService.add({ severity: 'warn', summary: 'Retirado', detail: 'Prato retirado de sua lista!' });
 
     }
 
@@ -204,7 +218,7 @@ export class ListDemoComponent implements OnInit {
     }
 
 
-    ppr(res:any){
+    ppr(res: any) {
         console.log(res)
     }
 
@@ -251,5 +265,5 @@ export class ListDemoComponent implements OnInit {
             }
         );
     }
-    
+
 }

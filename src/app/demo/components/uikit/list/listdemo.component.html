@@ -5,8 +5,12 @@
 				<h5>Listagem de Menus</h5>
 				<div style="margin-bottom: 10px;">
 					<p-toast></p-toast>
-					<p-button label="Novo prato" style="margin-right: 10px;" (onClick)="openDialog()"></p-button>
+					<p-button label="Novo prato" style="margin-right: 10px;" (onClick)="openDialog()" *ngIf="this.login?.tipo === 'estabelecimento'"></p-button>
 					<p-button label="Minha lista ({{this.myList.length}})" (onClick)="openDialogMyList()"></p-button>
+					<button pButton pRipple class="p-button-danger" style="margin-left: 10px;" (click)="logout()">
+						<i class="fa-solid fa-right-from-bracket"></i>
+					</button>
+					
 				</div>
 
 
@@ -140,7 +144,7 @@
 									<button *ngIf="product.onList" pButton pRipple class="p-button-danger" (click)="removeMyList(product._id)">
 										<i class="fa-solid fa-trash"></i>
 									</button>
-									<button pButton pRipple class="p-button-danger apagar" (click)="deleteFood(product._id)" style="margin-left: 5px;">
+									<button *ngIf="this.login?.tipo === 'estabelecimento'" pButton pRipple class="p-button-danger apagar" (click)="deleteFood(product._id)" style="margin-left: 5px;">
 										<i class="fa-solid fa-x"></i>
 									</button>
 								</div>

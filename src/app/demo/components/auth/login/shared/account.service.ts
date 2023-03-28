@@ -12,10 +12,11 @@ export class AccountService {
     private http: HttpClient) { }
 
   async login(user: any) {
-    const result = await this.http.post<any>(`${environment.api}/auth`, user).toPromise();
-
+    const result = await this.http.post<any>(`${environment.api}/auth/login`, user).toPromise();
+    console.log(result)
     if (result && result.access_token) {
       window.localStorage.setItem('token', result.access_token);
+      window.localStorage.setItem('user', JSON.stringify(result));
       return true;
     }
     return false;

@@ -38,18 +38,50 @@ export class LoginComponent {
         private loginService: LoginService,
         private fb: FormBuilder,
         private accountService: AccountService,
-    ) {}
+    ) { }
+
+    async verifyLogin() {
+        const login = localStorage.getItem('user')
+        if (login) {
+            return this.router.navigate([''])
+        }
+        return
+    }
 
     async onSubmit() {
-        try {
-            const result = await this.accountService.login(this.login);
-            this.router.navigate(['/init']);
-        } catch (error) {
-            console.error(error);
-        }
+        Swal.fire({
+            title: 'Carregando...',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            },
+        });
+
+        this.accountService.login(this.login).then((response) => {
+            this.router.navigate(['']);
+            // salvar resposta no local storage
+            // localStorage.setItem('token', response);
+            Swal.close();
+            console.log(response)
+            // localStorage.setItem('token', response);
+        })
+            .catch((error) => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Usuário ou senha incorretos!',
+                });
+            }
+            );
+
     }
     ngOnInit(): void {
         this.layoutService.onMenuToggle();
+        this.verifyLogin()
+    }
+
+    register() {
+        this.router.navigate(['/register']);
     }
 
 
