@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  api: 'http://localhost:3001'
+  api: 'http://localhost:3001',
+  apiLyInvoice: 'https://api-pay.lytex.com.br/v2',
+  apiLyAuth: 'https://auth-pay.lytex.com.br/v1',
 };
 
 

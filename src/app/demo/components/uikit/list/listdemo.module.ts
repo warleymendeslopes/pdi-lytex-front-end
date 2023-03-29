@@ -18,6 +18,7 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @NgModule({
 	imports: [
@@ -39,7 +40,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 		SplitButtonModule,
 		ToastModule,
 		ConfirmDialogModule,
-		MatSnackBarModule
+		MatSnackBarModule,
+		ProgressSpinnerModule
 	],
 	declarations: [ListDemoComponent,NewFoodComponent]
 })

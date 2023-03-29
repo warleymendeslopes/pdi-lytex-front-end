@@ -50,34 +50,48 @@
 
 			<p-dialog header="Meu Carrinho" [(visible)]="mylistDiaolg" [modal]="true" [style]="{ width: '50vw' }"
 				[draggable]="false" [resizable]="false">
+				<div *ngIf="!this.loadInvoice">
+
+						
+
+
+					<h4 *ngIf="this.myList.length == 0">Nenhum item em sua carrinho!</h4>
+					<p-table [value]="myList" [tableStyle]="{ 'min-width': '50rem' }" *ngIf="this.myList.length != 0">
+						<ng-template pTemplate="header">
+							<tr>
+								<th>Nome</th>
+								<th>Preço</th>
+								<th>Descrição</th>
+								<th>Editar</th>
+							</tr>
+						</ng-template>
+						<ng-template pTemplate="body" let-product>
+							
+							<tr>
+								<td>{{ product.name }}</td>
+								<td>{{ product.price }}</td>
+								<td>{{ product.description }}</td>
+								<td>
+									<button pButton pRipple class="p-button-danger" (click)="removeMyList(product._id)">
+										<i class="fa-solid fa-trash"></i>
+									</button>
+								</td>
+							</tr>
+
+						</ng-template>
+
+					</p-table>
+					<button *ngIf="this.myList.length != 0" (click)="AcessToken()"  class="p-ripple p-element p-button p-component">Comprar R${{priceProductValue()}}</button>
+				</div>
+				<div *ngIf="this.loadInvoice">
+					<div *ngIf="!this.idInvoice" class="row">
+						<p-progressSpinner></p-progressSpinner>
+					</div>
+					<div *ngIf="this.idInvoice" class="row">
+						<img src="{{this.idInvoice}}" alt="qrcode pix">
+					</div>
 					
-
-
-				<h4 *ngIf="this.myList.length == 0">Nenhum item em sua carrinho!</h4>
-				<p-table [value]="myList" [tableStyle]="{ 'min-width': '50rem' }" *ngIf="this.myList.length != 0">
-					<ng-template pTemplate="header">
-						<tr>
-							<th>Nome</th>
-							<th>Preço</th>
-							<th>Descrição</th>
-							<th>Editar</th>
-						</tr>
-					</ng-template>
-					<ng-template pTemplate="body" let-product>
-						{{ppr(product)}}
-						<tr>
-							<td>{{ product.name }}</td>
-							<td>{{ product.price }}</td>
-							<td>{{ product.description }}</td>
-							<td>
-								<button pButton pRipple class="p-button-danger" (click)="removeMyList(product._id)">
-									<i class="fa-solid fa-trash"></i>
-								</button>
-							</td>
-						</tr>
-					</ng-template>
-				</p-table>
-				<button *ngIf="this.myList.length != 0" class="p-ripple p-element p-button p-component">Comprar</button>
+				</div>
 			</p-dialog>
 			
 

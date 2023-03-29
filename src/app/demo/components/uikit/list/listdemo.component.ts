@@ -20,6 +20,7 @@ import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
+import { error } from 'console';
 
 @Component({
     templateUrl: './listdemo.component.html',
@@ -53,6 +54,7 @@ export class ListDemoComponent implements OnInit {
     login: any
 
 
+
     newFood: FormGroup | any;
 
     constructor(
@@ -73,7 +75,7 @@ export class ListDemoComponent implements OnInit {
 
     ngOnInit() {
         this.list();
-        this.verifyLogin();
+        // this.verifyLogin();
         this.sortOptions = [
             { label: 'maior para menor', value: '!price' },
             { label: 'menor para maior', value: 'price' },
@@ -264,6 +266,64 @@ export class ListDemoComponent implements OnInit {
                 this.addNewFood = false;
             }
         );
+    }
+
+    priceProductValue(){
+        let soma = 0
+        this.myList.forEach((iten)=>{
+            soma = soma + iten.price
+        })
+        return soma
+    }
+
+
+
+
+    dadosMesa = {
+        "treatmentPronoun": "you",
+        "type": "pf",
+        "name": "teste warley 123",
+        "cpfCnpj": "11451778678",
+        "email": "warley@lytex.com.br",
+        "cellphone": "33999096884",
+        "address": {
+            "complement": "centro da cidade",
+            "number": "SN",
+            "zip": "35170002",
+            "city": "Coronel Fabriciano",
+            "street": "Rua Doutor Moacir Byrro",
+            "state": "MG",
+            "zone": "Centro"
+        }
+    }
+
+    loadInvoice = false;
+    idInvoice: string | undefined;
+    async AcessToken(){
+        this.loadInvoice= true;
+            const dados = this.myList;
+
+            const items = dados.map(item => {
+                return {
+                  name: item.name,
+                  value: item.price,
+                  quantity: 1
+                };
+              });
+
+
+            const result = await this.menuService.invoice(items, this.dadosMesa)
+            .then((res:any)=>{
+                console.log(res._id)
+                this.idInvoice = "https://public-api-pay.lytex.com.br/v1/qrcode/"+res._id;
+               // this.loadInvoice = false;
+            })
+            
+
+            //https://public-api-pay.lytex.com.br/v1/qrcode/6423aa5625b277000b69b156
+            // Do something with the result
+
+
     }
 
 }

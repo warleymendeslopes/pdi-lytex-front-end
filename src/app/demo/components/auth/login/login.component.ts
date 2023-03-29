@@ -56,7 +56,7 @@ export class LoginComponent {
                 Swal.showLoading();
             },
         });
-
+        
         this.accountService.login(this.login).then((response) => {
             this.router.navigate(['']);
             // salvar resposta no local storage
