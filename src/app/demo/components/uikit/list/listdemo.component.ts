@@ -19,8 +19,12 @@ import { DialogModule } from 'primeng/dialog';
 import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
-import { Router } from '@angular/router';
+
+import { ActivatedRoute, Router } from '@angular/router';
 import { formatMoney } from '../../../service/money-format.service';
+import { error } from 'console';
+
+
 
 @Component({
     templateUrl: './listdemo.component.html',
@@ -63,20 +67,49 @@ export class ListDemoComponent implements OnInit {
         private fb: FormBuilder,
         private messageService: MessageService,
         public router: Router,
+
+         private activatedRoute: ActivatedRoute,
+
+
         
         ) {
             this.newFood = this.fb.group({
+
             name: ['', Validators.required],
             price: ['', Validators.required],
             description: ['', Validators.required],
         });
     }
 
+
+    IDmesa:string | undefined
     formatBRL(numbe: number){
-       return formatMoney(numbe / 100)
-    }
+        return formatMoney(numbe / 100)
+     }
 
     ngOnInit() {
+        let parans = this.activatedRoute.params
+
+    
+        /**
+         * Pega o valor do parametro mesa na URl caso tenha, esse parametro seria o ID da mesa
+         * 
+         * faz uma consulta no banco para verificar se essa mesa realmente existe,
+         * 
+         * se a mesa existir exibe o cardapio com a opcoes de pagamento
+         * caso a mesa nao exista exibe o cardapio sem a opcao de pagamento
+         * 
+         */
+
+           this.activatedRoute.params.subscribe(params => {
+            const paramValue = params['mesa'];
+            this.IDmesa = paramValue;
+          });
+          console.log( this.IDmesa)
+
+
+
+
         this.list();
         this.verifyLogin();
         this.sortOptions = [
@@ -119,6 +152,7 @@ export class ListDemoComponent implements OnInit {
             }
         })
     }
+
 
     showSuccess() {
         this.messageService.add({ severity: 'success', summary: 'Success Message', detail: 'Order submitted' });

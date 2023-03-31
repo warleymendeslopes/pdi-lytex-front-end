@@ -6,7 +6,9 @@ import { AuthGuard } from '../app/demo/components/auth/login/shared/auth.guard';
 @NgModule({
     imports: [
         RouterModule.forRoot([
+
             { path: '', data: { breadcrumb: 'List' }, loadChildren: () => import('./demo/components/uikit/list/listdemo.module').then(m => m.ListDemoModule) },
+
             {
                 path: 'painel', component: AppLayoutComponent,
                 children: [

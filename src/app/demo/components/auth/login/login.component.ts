@@ -45,6 +45,10 @@ export class LoginComponent {
         return
     }
 
+    getToken(){
+        return this.accountService.getAuthorizationToken()
+    }
+
     async onSubmit() {
         Swal.fire({
             title: 'Carregando...',
@@ -53,25 +57,31 @@ export class LoginComponent {
                 Swal.showLoading();
             },
         });
-        
-        this.accountService.login(this.login).then((response) => {
-            this.router.navigate(['']);
-            // salvar resposta no local storage
-            // localStorage.setItem('token', response);
+
+        try {
+            const result = await this.accountService.login(this.login);
+            console.log(`Login efetuado: ${result}`);
+            this.router.navigate(['/painel']);
             Swal.close();
-            console.log(response)
-            // localStorage.setItem('token', response);
-        })
-            .catch((error) => {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Usuário ou senha incorretos!',
-                });
-            }
-            );
+         } catch (error) {
+           console.error(error);
+           Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Usuário ou senha incorretos!',
+            });
+          }
+          
 
     }
+
+
+
+
+
+
+
+
     ngOnInit(): void {
         this.layoutService.onMenuToggle();
         this.verifyLogin()

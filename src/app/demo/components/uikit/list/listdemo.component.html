@@ -15,16 +15,7 @@
                         label="Minha lista ({{ this.myList.length }})"
                         (onClick)="openDialogMyList()"
                     ></p-button>
-                    <button
-                        pButton
-                        pRipple
-                        class="p-button-danger"
-                        style="margin-left: 10px"
-                        (click)="logout()"
-                        *ngIf="this.login"
-                    >
-                        <i class="fa-solid fa-right-from-bracket"></i>
-                    </button>
+
 					<button
                         pButton
                         style="margin-left: 10px"
@@ -35,7 +26,6 @@
                     </button>
                 </div>
             </div>
-            <!-- <a>Itens no carrinho ({{this.myList.length}})</a> -->
 
             <p-dialog
                 header="Adicionar novo prato"

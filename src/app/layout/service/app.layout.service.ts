@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
+
 export interface AppConfig {
     inputStyle: string;
     colorScheme: string;
@@ -46,9 +47,18 @@ export class LayoutService {
 
     private overlayOpen = new Subject<any>();
 
+    private AccountService = new Subject<any>();
+
+
+
     configUpdate$ = this.configUpdate.asObservable();
 
     overlayOpen$ = this.overlayOpen.asObservable();
+
+
+
+
+token = window.localStorage.getItem('token');
 
     onMenuToggle() {
         if (this.isOverlay()) {
@@ -69,6 +79,7 @@ export class LayoutService {
             }
         }
     }
+
 
     showProfileSidebar() {
         this.state.profileSidebarVisible = !this.state.profileSidebarVisible;
