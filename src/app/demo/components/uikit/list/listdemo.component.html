@@ -115,7 +115,7 @@
                         <ng-template pTemplate="body" let-product>
                             <tr>
                                 <td>{{ product.name }}</td>
-                                <td>{{ product.price  }}</td>
+                                <td>{{ formatBRL(product.price)  }}</td>
                                 <td>{{ product.description }}</td>
                                 <td>
                                     <button

@@ -20,8 +20,10 @@ import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { formatMoney } from '../../../service/money-format.service';
 import { error } from 'console';
+
 
 
 @Component({
@@ -65,23 +67,25 @@ export class ListDemoComponent implements OnInit {
         private fb: FormBuilder,
         private messageService: MessageService,
         public router: Router,
-// <<<<<<< HEAD
+
          private activatedRoute: ActivatedRoute,
 
-   //  ) {
-//         this.newFood = this.fb.group({
-// =======
+
         
         ) {
             this.newFood = this.fb.group({
-//  >>>>>>> 5780a52dd9c5aa62f90a44b9b1b1b8a3f18c8adc
+
             name: ['', Validators.required],
             price: ['', Validators.required],
             description: ['', Validators.required],
         });
     }
 
+
     IDmesa:string | undefined
+    formatBRL(numbe: number){
+        return formatMoney(numbe / 100)
+     }
 
     ngOnInit() {
         let parans = this.activatedRoute.params
@@ -112,6 +116,7 @@ export class ListDemoComponent implements OnInit {
             { label: 'maior para menor', value: '!price' },
             { label: 'menor para maior', value: 'price' },
         ];
+        
 
     }
 
