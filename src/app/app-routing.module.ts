@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { NotfoundComponent } from './demo/components/notfound/notfound.component';
 import { AppLayoutComponent } from "./layout/app.layout.component";
 import { AuthGuard } from '../app/demo/components/auth/login/shared/auth.guard';
+
+
 @NgModule({
     imports: [
         RouterModule.forRoot([
@@ -27,6 +29,7 @@ import { AuthGuard } from '../app/demo/components/auth/login/shared/auth.guard';
 
         ], { scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled', onSameUrlNavigation: 'reload' })
     ],
+    
     exports: [RouterModule]
 })
 export class AppRoutingModule {
