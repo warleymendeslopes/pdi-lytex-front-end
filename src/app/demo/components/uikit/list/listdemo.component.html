@@ -7,9 +7,6 @@
 					<p-toast></p-toast>
 					<p-button label="Novo prato" style="margin-right: 10px;" (onClick)="openDialog()" *ngIf="this.login?.tipo === 'estabelecimento'"></p-button>
 					<p-button label="Minha lista ({{this.myList.length}})" (onClick)="openDialogMyList()"></p-button>
-					<button pButton pRipple class="p-button-danger" style="margin-left: 10px;" (click)="logout()">
-						<i class="fa-solid fa-right-from-bracket"></i>
-					</button>
 					
 				</div>
 

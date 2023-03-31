@@ -121,29 +121,7 @@ export class ListDemoComponent implements OnInit {
         return
     }
 
-    logout() {
-        Swal.fire({
-            title: 'Tem certeza?',
-            text: 'Você não poderá reverter isso!',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Sim, sair!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                localStorage.removeItem('user')
-                localStorage.removeItem('token')
-                this.router.navigate(['/login'])
-            } else {
-                return
-            }
 
-
-        })
-
-
-    }
 
     showSuccess() {
         this.messageService.add({ severity: 'success', summary: 'Success Message', detail: 'Order submitted' });
