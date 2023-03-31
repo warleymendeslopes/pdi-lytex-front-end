@@ -5,115 +5,63 @@
                 <h5>Listagem de Menus</h5>
                 <div style="margin-bottom: 10px">
                     <p-toast></p-toast>
-                    <p-button
-                        label="Novo prato"
-                        style="margin-right: 10px"
-                        (onClick)="openDialog()"
-                        *ngIf="this.login?.tipo === 'estabelecimento'"
-                    ></p-button>
-                    <p-button
-                        label="Minha lista ({{ this.myList.length }})"
-                        (onClick)="openDialogMyList()"
-                    ></p-button>
+                    <p-button label="Novo prato" style="margin-right: 10px" (onClick)="openDialog()"
+                        *ngIf="this.login?.tipo === 'estabelecimento'"></p-button>
+                    <p-button label="Minha lista ({{ this.myList.length }})" (onClick)="openDialogMyList()"></p-button>
 
-					<button
-                        pButton
-                        style="margin-left: 10px"
-                        *ngIf="!this.login"
-						(click)="goToLogin()"
-                    >
-					<i class="fa-solid fa-user"></i>
+                    <button pButton style="margin-left: 10px" *ngIf="!this.login" (click)="goToLogin()">
+                        <i class="fa-solid fa-user"></i>
                     </button>
                 </div>
             </div>
 
-            <p-dialog
-                header="Adicionar novo prato"
-                [(visible)]="addNewFood"
-                [modal]="true"
-                [style]="{ width: '20vw' }"
-                [draggable]="false"
-                [resizable]="false"
-            >
+            <p-dialog header="Adicionar novo prato" [(visible)]="addNewFood" [modal]="true" [style]="{ width: '20vw' }"
+                [draggable]="false" [resizable]="false">
                 <br />
-                <div
-                    style="
+                <div style="
                         display: flex;
                         justify-content: center;
                         align-items: center;
-                    "
-                >
+                    ">
                     <form [formGroup]="this.newFood">
                         <span class="p-float-label">
-                            <input
-                                pInputText
-                                id="username"
-                                formControlName="name"
-                                style="width: 300px;"
-                            />
+                            <input pInputText id="username" formControlName="name" style="width: 300px;" />
                             <label htmlFor="username">Nome do prato</label>
                         </span>
                         <br />
 
                         <span class="p-float-label">
-                            <input
-                                pInputText
-                                id="username"
-                                formControlName="price"
-                                currencyMask 
-                                type="text"
+                            <input pInputText id="username" formControlName="price" currencyMask type="text"
                                 [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', allowNegative: false, precision: 2, align: 'left' }"
-                                style="width: 300px;"
-                            />
+                                style="width: 300px;" />
                         </span>
                         <br />
 
                         <span class="p-float-label">
-                            <textarea
-                                rows="5"
-                                cols="27"
-                                pInputTextarea
-                                formControlName="description"
-                                style="width: 300px;"
-                                placeholder="Descrição do prato"
-                            ></textarea>
+                            <textarea rows="5" cols="27" pInputTextarea formControlName="description"
+                                style="width: 300px;" placeholder="Descrição do prato"></textarea>
                         </span>
                         <br />
 
-                        <span
-                            class="p-float-label"
-                            style="display: flex; justify-content: end"
-                        >
-                            <p-button
-                                label="Criar prato"
-                                (onClick)="saveNewFood()"
-                            ></p-button>
+                        <span class="p-float-label" style="display: flex; justify-content: end">
+                            <p-button label="Criar prato" (onClick)="saveNewFood()"></p-button>
                         </span>
                     </form>
                 </div>
             </p-dialog>
 
-            <p-dialog
-                header="Meu Carrinho"
-                [(visible)]="mylistDiaolg"
-                [modal]="true"
-                [style]="{ width: '50vw' }"
-                [draggable]="false"
-                [resizable]="false"
-            >
+            <p-dialog header="Meu Carrinho" [(visible)]="mylistDiaolg" [modal]="true" [style]="{ width: '50vw' }"
+                [draggable]="false" [resizable]="false">
                 <div *ngIf="!this.loadInvoice">
                     <h4 *ngIf="this.myList.length == 0">
                         Nenhum item em sua carrinho!
                     </h4>
-                    <p-table
-                        [value]="myList"
-                        [tableStyle]="{ 'min-width': '50rem' }"
-                        *ngIf="this.myList.length != 0"
-                    >
+                    <p-table [value]="myList" [tableStyle]="{ 'min-width': '50rem' }" *ngIf="this.myList.length != 0">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th>Nome</th>
                                 <th>Preço</th>
+                                <th>Qunt.</th>
                                 <th>Descrição</th>
                                 <th>Editar</th>
                             </tr>
@@ -121,15 +69,11 @@
                         <ng-template pTemplate="body" let-product>
                             <tr>
                                 <td>{{ product.name }}</td>
-                                <td>{{ formatBRL(product.price)  }}</td>
+                                <td>{{ formatBRL(product.price) }}</td>
+                                <td>{{ product.quantity}}</td>
                                 <td>{{ product.description }}</td>
                                 <td>
-                                    <button
-                                        pButton
-                                        pRipple
-                                        class="p-button-danger"
-                                        (click)="removeMyList(product._id)"
-                                    >
+                                    <button pButton pRipple class="p-button-danger" (click)="removeMyList(product._id)">
                                         <i class="fa-solid fa-trash"></i>
                                     </button>
                                 </td>
@@ -137,19 +81,17 @@
                         </ng-template>
                     </p-table>
                     <div style="display: flex; justify-content: end; margin-top: 10px;">
-						<button
-							*ngIf="this.myList.length != 0"
-							(click)="AcessToken()"
-							class="p-ripple p-element p-button p-component"
-						>
-							Comprar {{ priceProductValue() }}
-						</button>
-					</div>
+                        <button *ngIf="this.myList.length != 0" (click)="AcessToken()"
+                            class="p-ripple p-element p-button p-component">
+                            Comprar {{ priceProductValue() }}
+                        </button>
+                    </div>
                 </div>
                 <div *ngIf="this.loadInvoice" style="display: flex; justify-content: center;">
-                    <div *ngIf="!this.idInvoice" class="row" style="display: flex; justify-content: center; flex-direction: column;">
-						<h3>Carregando Pedido...</h3>
-						<img src="../../../../../assets/layout/images/duck.gif" alt="" width="260" height="205">
+                    <div *ngIf="!this.idInvoice" class="row"
+                        style="display: flex; justify-content: center; flex-direction: column;">
+                        <h3>Carregando Pedido...</h3>
+                        <img src="../../../../../assets/layout/images/duck.gif" alt="" width="260" height="205">
                         <!-- <p-progressSpinner></p-progressSpinner> -->
                     </div>
                     <div *ngIf="this.idInvoice" class="row">
@@ -158,33 +100,16 @@
                 </div>
             </p-dialog>
 
-            <p-dataView
-                #dv
-                [value]="listMenu"
-                [paginator]="true"
-                [rows]="9"
-                filterBy="name"
-                [sortField]="sortField"
-                [sortOrder]="sortOrder"
-                layout="grid"
-            >
+            <p-dataView #dv [value]="listMenu" [paginator]="true" [rows]="9" filterBy="name" [sortField]="sortField"
+                [sortOrder]="sortOrder" layout="grid">
                 <ng-template pTemplate="header">
-                    <div
-                        class="flex flex-column md:flex-row md:justify-content-between gap-2"
-                    >
-                        <p-dropdown
-                            [options]="sortOptions"
-                            placeholder="Filtro por preço"
-                            (onChange)="onSortChange($event)"
-                        ></p-dropdown>
+                    <div class="flex flex-column md:flex-row md:justify-content-between gap-2">
+                        <p-dropdown [options]="sortOptions" placeholder="Filtro por preço"
+                            (onChange)="onSortChange($event)"></p-dropdown>
                         <span class="p-input-icon-left">
                             <i class="pi pi-search"></i>
-                            <input
-                                type="search"
-                                pInputText
-                                placeholder="Procurar por nome"
-                                (input)="onFilter(dv, $event)"
-                            />
+                            <input type="search" pInputText placeholder="Procurar por nome"
+                                (input)="onFilter(dv, $event)" />
                         </span>
                         <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
                     </div>
@@ -192,20 +117,12 @@
 
                 <ng-template let-product pTemplate="listItem">
                     <div class="col-12">
-                        <div
-                            class="flex flex-column md:flex-row align-items-center p-3 w-full"
-                        >
-                            <img
-                                [src]="
+                        <div class="flex flex-column md:flex-row align-items-center p-3 w-full">
+                            <img [src]="
                                     'assets/demo/images/product/' +
                                     product.image
-                                "
-                                [alt]="product.name"
-                                class="my-4 md:my-0 w-9 md:w-10rem shadow-2 mr-5"
-                            />
-                            <div
-                                class="flex-1 flex flex-column align-items-center text-center md:text-left"
-                            >
+                                " [alt]="product.name" class="my-4 md:my-0 w-9 md:w-10rem shadow-2 mr-5" />
+                            <div class="flex-1 flex flex-column align-items-center text-center md:text-left">
                                 <div class="font-bold text-2xl">
                                     {{ product.name }}
                                 </div>
@@ -237,14 +154,9 @@
 								</div>
 								<span [class]="'product-badge status-' + product.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>
 							</div> -->
-                            <div
-                                class="flex flex-column align-items-center text-center mb-3"
-                            >
-                                <img
-                                    src="../../../../../assets/layout/images/food.png"
-                                    [alt]="product.name"
-                                    class="w-9 shadow-2 my-3 mx-0"
-                                />
+                            <div class="flex flex-column align-items-center text-center mb-3">
+                                <img src="../../../../../assets/layout/images/food.png" [alt]="product.name"
+                                    class="w-9 shadow-2 my-3 mx-0" />
                                 <div class="text-2xl font-bold">
                                     {{ product.name }}
                                 </div>
@@ -253,19 +165,22 @@
                                 </div>
                                 <!-- <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating> -->
                             </div>
-                            <div
-                                class="flex align-items-center justify-content-between"
-                            >
-                                <span class="text-2xl font-semibold"
-                                    >{{ formatBRL(product.price) }}</span
-                                >
-                                <div>
-                                    <p-button
-                                        *ngIf="!product.onList"
-                                        (onClick)="addMyList(product._id)"
-                                        ><i class="fa-solid fa-plus"></i
-                                    ></p-button>
-                                    <button
+                            <div class="flex align-items-center justify-content-between">
+                                <span class="text-2xl font-semibold">{{ formatBRL(product.price) }}</span>
+                                <div style="display: flex; justify-content: end; flex-direction: row;">
+                                    <div
+                                        style="display: flex; justify-content: center; align-items: center; flex-direction: row;">
+                                        <p-button (onClick)="addMyList(product._id)"><i
+                                                class="fa-solid fa-plus" ></i></p-button>
+                                        <input pInputText type="text" style="width: 30px; height: 30px; margin: 0px 5px 0px 5px;"
+                                            [value]=" product?.quantity || 0" />
+                                        <p-button *ngIf="!product.onList" (onClick)="removeMyList(product._id)"><i
+                                                class="fa-solid fa-minus"></i>
+                                        </p-button>
+                                    </div>
+
+
+                                    <!-- <button
                                         *ngIf="product.onList"
                                         pButton
                                         pRipple
@@ -273,18 +188,12 @@
                                         (click)="removeMyList(product._id)"
                                     >
                                         <i class="fa-solid fa-trash"></i>
-                                    </button>
-                                    <button
-                                        *ngIf="
+                                    </button> -->
+                                    <button *ngIf="
                                             this.login?.tipo ===
                                             'estabelecimento'
-                                        "
-                                        pButton
-                                        pRipple
-                                        class="p-button-danger apagar"
-                                        (click)="deleteFood(product._id)"
-                                        style="margin-left: 5px"
-                                    >
+                                        " pButton pRipple class="p-button-danger apagar"
+                                        (click)="deleteFood(product._id)" style="margin-left: 5px">
                                         <i class="fa-solid fa-x"></i>
                                     </button>
                                 </div>

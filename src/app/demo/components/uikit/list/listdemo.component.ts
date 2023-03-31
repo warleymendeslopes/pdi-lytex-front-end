@@ -37,29 +37,29 @@ export class ListDemoComponent implements OnInit {
     @Output() eventoPersonalizado = new EventEmitter();
     products: Product[] = [];
     sortOptions: SelectItem[] = [];
-    
+
     sortOrder: number = 0;
-    
+
     sortField: string = '';
-    
+
     sourceCities: any[] = [];
-    
+
     targetCities: any[] = [];
-    
+
     orderCities: any[] = [];
-    
+
     listMenu: any[] = [];
-    
+
     myList: any[] = [];
-    
+
     addNewFood: boolean = false;
     mylistDiaolg: boolean = false;
     login: any
     currencyPipe: any;
-    
-    
+
+
     newFood: FormGroup | any;
-    
+
     constructor(
         private productService: ProductService,
         private menuService: MenuService,
@@ -68,12 +68,12 @@ export class ListDemoComponent implements OnInit {
         private messageService: MessageService,
         public router: Router,
 
-         private activatedRoute: ActivatedRoute,
+        private activatedRoute: ActivatedRoute,
 
 
-        
-        ) {
-            this.newFood = this.fb.group({
+
+    ) {
+        this.newFood = this.fb.group({
 
             name: ['', Validators.required],
             price: ['', Validators.required],
@@ -82,15 +82,15 @@ export class ListDemoComponent implements OnInit {
     }
 
 
-    IDmesa:string | undefined
-    formatBRL(numbe: number){
+    IDmesa: string | undefined
+    formatBRL(numbe: number) {
         return formatMoney(numbe / 100)
-     }
+    }
 
     ngOnInit() {
         let parans = this.activatedRoute.params
 
-    
+
         /**
          * Pega o valor do parametro mesa na URl caso tenha, esse parametro seria o ID da mesa
          * 
@@ -101,11 +101,11 @@ export class ListDemoComponent implements OnInit {
          * 
          */
 
-           this.activatedRoute.params.subscribe(params => {
+        this.activatedRoute.params.subscribe(params => {
             const paramValue = params['mesa'];
             this.IDmesa = paramValue;
-          });
-          console.log( this.IDmesa)
+        });
+        console.log(this.IDmesa)
 
 
 
@@ -116,7 +116,7 @@ export class ListDemoComponent implements OnInit {
             { label: 'maior para menor', value: '!price' },
             { label: 'menor para maior', value: 'price' },
         ];
-        
+
 
     }
 
@@ -216,31 +216,27 @@ export class ListDemoComponent implements OnInit {
 
     addMyList(productId: any) {
         const Product = this.listMenu.find((item) => item._id === productId);
-        const exist = this.myList.find((item) => item._id === productId);
-        if (exist) {
-            this.messageService.add({ severity: 'info', summary: 'Já adicionado', detail: 'Prato já adicionado, escolha outro!' });
-            return;
+        if (Product.quantity > 0) {
+            Product.quantity = Product.quantity + 1
+        } else {
+            Product.quantity = 1
         }
-        Product.onList = true
+        const exit = this.myList.find((item) => item._id === productId);
+        if(!exit){
+            this.myList.push(Product);
+        }
 
-        this.myList.push(Product);
         this.messageService.add({ severity: 'success', summary: 'Adicionado', detail: 'Prato adicionado com sucesso!' });
+        console.log("ADDD",Product.quantity)
     }
 
     removeMyList(productId: any) {
-        const Product = this.listMenu.find((item) => item._id === productId)
-        const exist = this.myList.find((item) => item._id === productId);
-        if (!exist) {
-            this.messageService.add({ severity: 'info', summary: 'Já adicionado', detail: 'Prato já adicionado, escolha outro!' });
-            return;
+        const Product = this.listMenu.find((item) => item._id === productId);
+        Product.quantity = Product.quantity - 1
+        if (Product.quantity == 0) {
+            this.myList.splice(this.myList.indexOf(Product), 1);
         }
-        Product.onList = false
-        this.list();
-
-
-        this.myList.splice(this.myList.indexOf(Product), 1);
         this.messageService.add({ severity: 'warn', summary: 'Retirado', detail: 'Prato retirado de sua lista!' });
-
     }
 
 
@@ -308,7 +304,7 @@ export class ListDemoComponent implements OnInit {
     priceProductValue() {
         let soma = 0
         this.myList.forEach((iten) => {
-            soma = soma + iten.price
+            soma = soma + (iten.quantity * iten.price)
         })
         return this.formatBRL(soma)
     }

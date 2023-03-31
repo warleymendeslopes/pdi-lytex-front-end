@@ -19,9 +19,9 @@
 
     <div #topbarmenu class="layout-topbar-menu"
     style="align-items: center;"
-        [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
+        [ngClass]="{'layout-topbar-menu-mobile-active': layoutService?.state?.profileSidebarVisible}">
         <span>
-            Ola {{TokenData.data.name}}
+            Ola {{TokenData?.data?.name}}
         </span>
         <!-- <button class="p-link layout-topbar-button">
             <i class="pi pi-calendar"></i>
