@@ -19,6 +19,7 @@ import { DialogModule } from 'primeng/dialog';
 import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+
 import { Router, ActivatedRoute } from '@angular/router';
 import { error } from 'console';
 
@@ -33,31 +34,30 @@ export class ListDemoComponent implements OnInit {
     @Input() contador: number | undefined;
     @Output() eventoPersonalizado = new EventEmitter();
     products: Product[] = [];
-
     sortOptions: SelectItem[] = [];
-
+    
     sortOrder: number = 0;
-
+    
     sortField: string = '';
-
+    
     sourceCities: any[] = [];
-
+    
     targetCities: any[] = [];
-
+    
     orderCities: any[] = [];
-
+    
     listMenu: any[] = [];
-
+    
     myList: any[] = [];
-
+    
     addNewFood: boolean = false;
     mylistDiaolg: boolean = false;
     login: any
-
-
-
+    currencyPipe: any;
+    
+    
     newFood: FormGroup | any;
-
+    
     constructor(
         private productService: ProductService,
         private menuService: MenuService,
@@ -65,10 +65,16 @@ export class ListDemoComponent implements OnInit {
         private fb: FormBuilder,
         private messageService: MessageService,
         public router: Router,
-        private activatedRoute: ActivatedRoute,
+// <<<<<<< HEAD
+         private activatedRoute: ActivatedRoute,
 
-    ) {
-        this.newFood = this.fb.group({
+   //  ) {
+//         this.newFood = this.fb.group({
+// =======
+        
+        ) {
+            this.newFood = this.fb.group({
+//  >>>>>>> 5780a52dd9c5aa62f90a44b9b1b1b8a3f18c8adc
             name: ['', Validators.required],
             price: ['', Validators.required],
             description: ['', Validators.required],
@@ -101,26 +107,46 @@ export class ListDemoComponent implements OnInit {
 
 
         this.list();
-        // this.verifyLogin();
+        this.verifyLogin();
         this.sortOptions = [
             { label: 'maior para menor', value: '!price' },
             { label: 'menor para maior', value: 'price' },
         ];
-        
+
     }
 
     async verifyLogin() {
         //transform in object
-
         this.login = (localStorage.getItem('user'))
         this.login = JSON.parse(this.login)
-        console.log("------------------", this.login)
-        if (!this.login) {
-            return this.router.navigate(['/login'])
-        }
-        return
+        // if (!this.login) {
+        //     return this.router.navigate(['/login'])
+        // }
+        // return
+    }
+    async goToLogin() {
+        this.router.navigate(['/login'])
     }
 
+    logout() {
+        Swal.fire({
+            title: 'Tem certeza?',
+            text: 'Você não poderá reverter isso!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sim, sair!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                localStorage.removeItem('user')
+                localStorage.removeItem('token')
+                this.router.navigate(['/login'])
+            } else {
+                return
+            }
+        })
+    }
 
 
     showSuccess() {
@@ -272,9 +298,9 @@ export class ListDemoComponent implements OnInit {
         );
     }
 
-    priceProductValue(){
+    priceProductValue() {
         let soma = 0
-        this.myList.forEach((iten)=>{
+        this.myList.forEach((iten) => {
             soma = soma + iten.price
         })
         return soma
@@ -303,29 +329,29 @@ export class ListDemoComponent implements OnInit {
 
     loadInvoice = false;
     idInvoice: string | undefined;
-    async AcessToken(){
-        this.loadInvoice= true;
-            const dados = this.myList;
+    async AcessToken() {
+        this.loadInvoice = true;
+        const dados = this.myList;
 
-            const items = dados.map(item => {
-                return {
-                  name: item.name,
-                  value: item.price,
-                  quantity: 1
-                };
-              });
+        const items = dados.map(item => {
+            return {
+                name: item.name,
+                value: item.price,
+                quantity: 1
+            };
+        });
 
 
-            const result = await this.menuService.invoice(items, this.dadosMesa)
-            .then((res:any)=>{
+        const result = await this.menuService.invoice(items, this.dadosMesa)
+            .then((res: any) => {
                 console.log(res._id)
-                this.idInvoice = "https://public-api-pay.lytex.com.br/v1/qrcode/"+res._id;
-               // this.loadInvoice = false;
+                this.idInvoice = "https://public-api-pay.lytex.com.br/v1/qrcode/" + res._id;
+                // this.loadInvoice = false;
             })
-            
 
-            //https://public-api-pay.lytex.com.br/v1/qrcode/6423aa5625b277000b69b156
-            // Do something with the result
+
+        //https://public-api-pay.lytex.com.br/v1/qrcode/6423aa5625b277000b69b156
+        // Do something with the result
 
 
     }
