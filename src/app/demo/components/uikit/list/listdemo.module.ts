@@ -19,6 +19,7 @@ import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { NgxCurrencyModule } from 'ngx-currency';
 
 @NgModule({
 	imports: [
@@ -41,7 +42,8 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 		ToastModule,
 		ConfirmDialogModule,
 		MatSnackBarModule,
-		ProgressSpinnerModule
+		ProgressSpinnerModule,
+		NgxCurrencyModule
 	],
 	declarations: [ListDemoComponent,NewFoodComponent]
 })

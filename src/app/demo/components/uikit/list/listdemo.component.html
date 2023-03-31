@@ -49,6 +49,7 @@
                                 pInputText
                                 id="username"
                                 formControlName="name"
+                                style="width: 300px;"
                             />
                             <label htmlFor="username">Nome do prato</label>
                         </span>
@@ -59,8 +60,11 @@
                                 pInputText
                                 id="username"
                                 formControlName="price"
+                                currencyMask 
+                                type="text"
+                                [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', allowNegative: false, precision: 2, align: 'left' }"
+                                style="width: 300px;"
                             />
-                            <label htmlFor="username">Preço</label>
                         </span>
                         <br />
 
@@ -70,6 +74,8 @@
                                 cols="27"
                                 pInputTextarea
                                 formControlName="description"
+                                style="width: 300px;"
+                                placeholder="Descrição do prato"
                             ></textarea>
                         </span>
                         <br />
@@ -79,7 +85,7 @@
                             style="display: flex; justify-content: end"
                         >
                             <p-button
-                                label="Submit"
+                                label="Criar prato"
                                 (onClick)="saveNewFood()"
                             ></p-button>
                         </span>
@@ -136,7 +142,7 @@
 							(click)="AcessToken()"
 							class="p-ripple p-element p-button p-component"
 						>
-							Comprar R${{ priceProductValue() }}
+							Comprar {{ priceProductValue() }}
 						</button>
 					</div>
                 </div>
@@ -251,7 +257,7 @@
                                 class="flex align-items-center justify-content-between"
                             >
                                 <span class="text-2xl font-semibold"
-                                    >R${{ product.price }}</span
+                                    >{{ formatBRL(product.price) }}</span
                                 >
                                 <div>
                                     <p-button

@@ -280,6 +280,8 @@ export class ListDemoComponent implements OnInit {
                 Swal.showLoading();
             },
         });
+        //multiplicar o valor por 100
+        this.newFood.value.price = this.newFood.value.price * 100
 
         this.menuService.create(this.newFood.value).subscribe(
             (data) => {
@@ -308,7 +310,7 @@ export class ListDemoComponent implements OnInit {
         this.myList.forEach((iten) => {
             soma = soma + iten.price
         })
-        return soma
+        return this.formatBRL(soma)
     }
 
 

@@ -16,6 +16,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { NgxCurrencyModule } from 'ngx-currency';
 
 
 @NgModule({
@@ -29,7 +30,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
         ModalModule.forRoot(),
         MatDialogModule,
         InputNumberModule,
-        
+        NgxCurrencyModule
 
     ],
     providers: [
