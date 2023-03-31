@@ -1,8 +1,20 @@
 <div class="grid">
+
     <div class="col-12">
         <div class="card">
             <div style="display: flex; justify-content: space-between">
                 <h5>Listagem de Menus</h5>
+
+                
+                <button
+                    type="button"
+                    [requiredRole]="'superadmin'"
+                    >
+                    Only for superadmins!
+                </button>
+
+
+
                 <div style="margin-bottom: 10px">
                     <p-toast></p-toast>
                     <p-button label="Novo prato" style="margin-right: 10px" (onClick)="openDialog()"
