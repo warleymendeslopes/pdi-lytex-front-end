@@ -20,6 +20,7 @@ import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
+import { formatMoney } from '../../../service/money-format.service';
 
 @Component({
     templateUrl: './listdemo.component.html',
@@ -71,6 +72,10 @@ export class ListDemoComponent implements OnInit {
         });
     }
 
+    formatBRL(numbe: number){
+       return formatMoney(numbe / 100)
+    }
+
     ngOnInit() {
         this.list();
         this.verifyLogin();
@@ -78,6 +83,7 @@ export class ListDemoComponent implements OnInit {
             { label: 'maior para menor', value: '!price' },
             { label: 'menor para maior', value: 'price' },
         ];
+        
 
     }
 
