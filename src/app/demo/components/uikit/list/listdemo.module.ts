@@ -20,7 +20,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { NgxCurrencyModule } from 'ngx-currency';
-
+import { InputNumberModule } from 'primeng/inputnumber';
 @NgModule({
 	imports: [
 		CommonModule,
@@ -43,7 +43,8 @@ import { NgxCurrencyModule } from 'ngx-currency';
 		ConfirmDialogModule,
 		MatSnackBarModule,
 		ProgressSpinnerModule,
-		NgxCurrencyModule
+		NgxCurrencyModule,
+		InputNumberModule
 	],
 	declarations: [ListDemoComponent,NewFoodComponent]
 })
