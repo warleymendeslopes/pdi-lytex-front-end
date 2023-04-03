@@ -9,6 +9,6 @@ export class RegisterService {
     constructor(private http: HttpClient) {}
 
     register(data:Object): Observable<any> {
-        return this.http.post('http://localhost:3001/auth/register',data)
+        return this.http.post('https://warleypdi.herokuapp.com/auth/register',data)
     }
 }
