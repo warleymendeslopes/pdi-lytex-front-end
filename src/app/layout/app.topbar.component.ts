@@ -3,11 +3,10 @@ import { MenuItem } from 'primeng/api';
 import { LayoutService } from './service/app.layout.service';
 
 import { NewFoodComponent } from '../demo/components/new-food/new-food.component';
-import { DialogModule } from 'primeng/dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { AccountService } from '../demo/components/auth/login/shared/account.service';
 import Swal from 'sweetalert2';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 
 @Component({

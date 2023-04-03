@@ -10,6 +10,6 @@ export class LoginService {
     constructor(private http: HttpClient) {}
 
     login(data:Object): Observable<any> {
-        return this.http.post('http://localhost:3001/auth/login',data);
+        return this.http.post('https://warleypdi.herokuapp.com/auth/login',data);
     }
 }
