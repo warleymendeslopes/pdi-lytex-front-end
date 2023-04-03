@@ -42,6 +42,9 @@ export class LoginComponent {
 
     async verifyLogin() {
         const login = localStorage.getItem('user')
+        if(login){
+            this.router.navigate(['/painel']); 
+        }
         return
     }
 

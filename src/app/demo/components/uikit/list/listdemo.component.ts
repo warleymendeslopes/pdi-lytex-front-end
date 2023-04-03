@@ -83,8 +83,8 @@ export class ListDemoComponent implements OnInit {
 
 
     IDmesa: string | undefined
-    formatBRL(numbe: number) {
-        return formatMoney(numbe / 100)
+    formatBRL(number: number) {
+        return formatMoney(number / 100)
     }
 
     ngOnInit() {

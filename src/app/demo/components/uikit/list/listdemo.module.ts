@@ -20,7 +20,11 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { NgxCurrencyModule } from 'ngx-currency';
+
+import { InputNumberModule } from 'primeng/inputnumber';
+
 import { RequiredRolesDirective } from 'src/app/demo/directive/required-roles.directive';
+
 
 @NgModule({
 	imports: [
@@ -44,7 +48,8 @@ import { RequiredRolesDirective } from 'src/app/demo/directive/required-roles.di
 		ConfirmDialogModule,
 		MatSnackBarModule,
 		ProgressSpinnerModule,
-		NgxCurrencyModule
+		NgxCurrencyModule,
+		InputNumberModule
 	],
 	declarations: [ListDemoComponent,NewFoodComponent, RequiredRolesDirective]
 })
