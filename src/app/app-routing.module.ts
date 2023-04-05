@@ -1,15 +1,18 @@
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { NotfoundComponent } from './demo/components/notfound/notfound.component';
 import { AppLayoutComponent } from "./layout/app.layout.component";
 import { AuthGuard } from '../app/demo/components/auth/login/shared/auth.guard';
 
+import {MenuComponent} from 'src/app/demo/components/public-menu/menu/menu.component'
+
+import {PublicMenuModule} from './demo/components/public-menu/public-menu.module'
 
 @NgModule({
     imports: [
         RouterModule.forRoot([
-
-            { path: '', data: { breadcrumb: 'List' }, loadChildren: () => import('./demo/components/uikit/list/listdemo.module').then(m => m.ListDemoModule) },
+         { path: 'novo', data: { breadcrumb: 'List' }, loadChildren: () => import('./demo/components/public-menu/public-menu.module').then(m => m.PublicMenuModule) },
+         { path: '', loadChildren: () => import('./demo/components/uikit/list/listdemo.module').then(m => m.ListDemoModule) },
+                    
 
             {
                 path: 'painel', component: AppLayoutComponent,
@@ -34,3 +37,4 @@ import { AuthGuard } from '../app/demo/components/auth/login/shared/auth.guard';
 })
 export class AppRoutingModule {
 }
+

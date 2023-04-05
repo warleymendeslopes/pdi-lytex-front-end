@@ -14,7 +14,6 @@ import { PhotoService } from './demo/service/photo.service';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { MatDialogModule } from '@angular/material/dialog';
-import { FormsModule } from '@angular/forms';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { NgxCurrencyModule } from 'ngx-currency';
 
