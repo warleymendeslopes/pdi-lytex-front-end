@@ -10,7 +10,7 @@ import {PublicMenuModule} from './demo/components/public-menu/public-menu.module
 @NgModule({
     imports: [
         RouterModule.forRoot([
-         { path: 'novo', data: { breadcrumb: 'List' }, loadChildren: () => import('./demo/components/public-menu/public-menu.module').then(m => m.PublicMenuModule) },
+         { path: 'newpage', data: { breadcrumb: 'List' }, loadChildren: () => import('./demo/components/public-menu/public-menu.module').then(m => m.PublicMenuModule) },
          { path: '', loadChildren: () => import('./demo/components/uikit/list/listdemo.module').then(m => m.ListDemoModule) },
                     
 
